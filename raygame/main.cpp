@@ -10,6 +10,7 @@
 ********************************************************************************************/
 
 #include "raylib.h"
+#include "meep.h"
 
 int main()
 {
@@ -19,6 +20,15 @@ int main()
 	int screenHeight = 450;
 
 	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+
+	Vector2 g;
+	g.x = (GetScreenWidth() / 2.f);
+	g.y = (GetScreenHeight() / 2.f);
+
+	char playerSprite[] = { "resources/barricadeMetal.png" };
+	char weaponSprite[] = { "" };
+
+	meep player(playerSprite, weaponSprite, g);
 
 	SetTargetFPS(60);
 	//--------------------------------------------------------------------------------------
@@ -36,7 +46,7 @@ int main()
 		BeginDrawing();
 
 		ClearBackground(RAYWHITE);
-
+		player.refresh();
 		DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
 		EndDrawing();
