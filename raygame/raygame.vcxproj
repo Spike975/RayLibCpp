@@ -134,10 +134,16 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="meep.cpp" />
+    <ClCompile Include="functions.cpp" />
+    <ClCompile Include="color.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="entity.h" />
+    <ClInclude Include="inventory.h" />
     <ClInclude Include="meep.h" />
+    <ClInclude Include="myHero.h" />
+    <ClInclude Include="items.h" />
+    <ClInclude Include="color.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

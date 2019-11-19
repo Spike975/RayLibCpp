@@ -4,3 +4,4 @@
 
 void everyOther();
 void titleBestow();
+void charOccurances();
