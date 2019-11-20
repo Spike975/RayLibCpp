@@ -3,13 +3,15 @@
 
 class Item {
 public:
-	void setName(std::string nm);
 	void setQuality(int q);
+	void setGold(int g);
+	void setName(std::string nm);
 	int getQuality();
+	int getGold();
 	std::string getName();
 private:
 	std::string name;
-	int quality;
+	int quality, gold;
 };
 
 class Potion: public Item {
@@ -18,7 +20,6 @@ public:
 	Potion(int hp, int q);
 	void setHealth(int h);
 	int getHealth();
-	~Potion();
 private:
 	int hpMod;
 };
@@ -31,7 +32,6 @@ public:
 	int getDamage();
 	void setRange(int d);
 	int getRange();
-	~Weapon();
 
 private:
 	std::string name;
@@ -44,7 +44,6 @@ public:
 	Armor(int d);
 	void setDefense(int d);
 	int getDefense();
-	~Armor();
 
 private:
 	int defense;

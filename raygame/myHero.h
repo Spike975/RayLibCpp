@@ -9,14 +9,11 @@ public:
 	void setHealth(int hp);
 	void health(int hp);
 	void draw();
-	void changeWeapon();
-	void changeArmor();
 	void setPlayerText(Texture2D texture);
+	Inventory inv;
 private:
 	char name[21], special[21];
 	int age, hitPoints, wealth;
 	Texture2D player;
-	Inventory inv;
 	Equipped equ;
 };
-

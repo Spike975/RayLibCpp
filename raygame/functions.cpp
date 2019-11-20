@@ -20,12 +20,6 @@ void MyHero::health(int hp) {
 	hitPoints += hp;
 	
 }
-void MyHero::changeWeapon() {
-
-}
-void MyHero::changeArmor() {
-
-}
 
 std::string Item::getName() {
 	return name;
@@ -33,13 +27,25 @@ std::string Item::getName() {
 int Item::getQuality() {
 	return quality;
 }
+int Item::getGold() {
+	return gold;
+}
 void Item::setName(std::string nm) {
 	name = nm;
 }
 void Item::setQuality(int q) {
 	quality = q;
 }
+void Item::setGold(int g) {
+	gold = g;
+}
 
+void Equipped::changeWeapon() {
+
+}
+void Equipped::changeArmor() {
+
+}
 
 Potion::Potion() {
 	hpMod = 0;
@@ -53,12 +59,9 @@ void Potion::setHealth(int h){
 int Potion::getHealth() {
 	return hpMod;
 }
-Potion::~Potion() {
-
-}
 
 Weapon::Weapon(){
-	damage = 1;
+	damage = 0; range = 0;
 }
 Weapon::Weapon(int d, int r) {
 	damage = d;
@@ -76,12 +79,9 @@ void Weapon::setRange(int r) {
 int Weapon::getRange() {
 	return range;
 }
-Weapon::~Weapon(){
-	std::cout << name << " has broke and no longer exists in this wolrd.\n";
-}
 
 Armor::Armor() {
-	defense = 1;
+	defense = 0;
 }
 Armor::Armor(int d) {
 	defense = d;
@@ -92,16 +92,89 @@ void Armor::setDefense(int d) {
 int Armor::getDefense() {
 	return defense;
 }
-Armor::~Armor() {
-
+void Inventory::add(Weapon w) {
+	if (currWeapon < 10) {
+		weapons[currWeapon] = w;
+		currWeapon++;
+	}
+	else {
+		std::cout << "Maximum weapons reached.\n";
+	}
+}
+void Inventory::add(Armor a) {
+	if (currArmor < 10) {
+		armor[currArmor] = a;
+		currArmor++;
+	}
+	else {
+		std::cout << "Maximum armor reached.\n";
+	}
+	
+}
+void Inventory::add(Potion p) {
+	if (currPotion < 10) {
+		potions[currPotion] = p;
+		currPotion++;
+	}
+	else {
+		std::cout << "Maximum potions reached.\n";
+	}
+}
+void Inventory::subWeapon() {
+	Weapon nothing;
+	for (int i = 0; i < currWeapon; i++) {
+		std::cout << "[" << i << "]" << weapons[i].getName() << std::endl;
+	}
+	int place;
+	std::cout << "Please enter number:\n";
+	std::cin >> place;
+	weapons[place] = nothing;
+	for (int i = place; i < currWeapon; i++) {
+		if (i == currWeapon-1) {
+			weapons[i] = nothing;
+		}
+		else {
+			weapons[i] = weapons[i + 1];
+		}
+	}
+	currWeapon--;
+}
+void Inventory::subArmor() {
+	Armor nothing;
+	for (int i = 0; i < currArmor; i++) {
+		std::cout << "[" << i << "]" << armor[i].getName() << std::endl;
+	}
+	int place;
+	std::cout << "Please enter number:\n";
+	std::cin >> place;
+	armor[place] = nothing;
+	for (int i = place; i < currArmor; i++) {
+		if (place == currArmor - 1) {
+			armor[place] = nothing;
+		}
+		else {
+			armor[i] = armor[i + 1];
+		}
+	}
+	currArmor--;
+}
+void Inventory::subPotion() {
+	Potion nothing;
+	for (int i = 0; i < currPotion; i++) {
+		std::cout << "[" << i << "]" << potions[i].getName() << std::endl;
+	}
+	int place;
+	std::cout << "Please enter number:\n";
+	std::cin >> place;
+	potions[place] = nothing;
+	for (int i = place; i < currPotion; i++) {
+		if (place == currPotion - 1) {
+			potions[place] = nothing;
+		}
+		else {
+			weapons[i] = weapons[i + 1];
+		}
+	}
+	currPotion--;
 }
 
-Inventory::~Inventory()
-{
-	std::cout << "I think you died\n";
-}
-
-
-Equipped::~Equipped(){
-
-}

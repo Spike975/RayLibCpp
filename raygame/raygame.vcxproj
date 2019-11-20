@@ -136,6 +136,7 @@
     <ClCompile Include="meep.cpp" />
     <ClCompile Include="functions.cpp" />
     <ClCompile Include="color.cpp" />
+    <ClCompile Include="tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="entity.h" />
@@ -144,6 +145,36 @@
     <ClInclude Include="myHero.h" />
     <ClInclude Include="items.h" />
     <ClInclude Include="color.h" />
+    <ClInclude Include="tile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\barricadeMetal.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="resources\dirt.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="resources\grass.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="resources\ouch1.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="resources\ouch2.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="resources\ouch3.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="resources\ouch4.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="resources\ouch5.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="resources\water.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

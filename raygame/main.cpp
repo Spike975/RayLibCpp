@@ -9,8 +9,10 @@
 *
 ********************************************************************************************/
 #include <iostream>
+#include <stdlib.h>
 #include "raylib.h"
 #include "myHero.h"
+#include "tile.h"
 
 int main()
 {
@@ -20,19 +22,42 @@ int main()
 	int screenHeight = 450;
 
 	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+	Texture2D blocks[] = { LoadTexture("resources/water.png"),LoadTexture("resources/dirt.png"),LoadTexture("resources/grass.png") };
+	Texture2D faces[] = { LoadTexture("resources/ouch1.png"), LoadTexture("resources/ouch2.png"),LoadTexture("resources/ouch3.png"),LoadTexture("resources/ouch4.png"),LoadTexture("resources/ouch5.png") };
+	
 
-	Texture2D temp[] = { LoadTexture("resources/ouch1.png"), LoadTexture("resources/ouch2.png"),LoadTexture("resources/ouch3.png"),LoadTexture("resources/ouch4.png"),LoadTexture("resources/ouch5.png") };
+	const int something = (int)ceil((floor(GetScreenWidth() / blocks[0].width) + 1)*(floor(GetScreenHeight() / blocks[0].height) + 1));
+
+	Tile water[something];
+	int temp1 = 0;
+	int temp2 = 0;
+	int waterTiles = 0;
+	do{
+		water[waterTiles].Background = blocks[0];
+		water[waterTiles].position.x = temp1;
+		water[waterTiles].position.y = temp2;
+
+		temp1 += water[waterTiles].Background.width;
+		if (temp1 > GetScreenWidth()) {
+			temp1 = 0;
+			temp2 += water[waterTiles].Background.height;
+		}
+		waterTiles++;
+	} while(temp2 < GetScreenHeight());
+
+	std::cout << GetScreenWidth() / blocks[0].width <<std::endl;
+	std::cout << GetScreenHeight() / blocks[0].height <<std::endl;
+
+	std::cout << something <<std::endl;
+	std::cout << waterTiles <<std::endl;
 
 	MyHero player;
 	Potion p1(10, 1);
 	Potion p2(-15, 1);
 	player.setHealth(100);
 
-	std::string life;
-
 	SetTargetFPS(60);
 	//--------------------------------------------------------------------------------------
-	std::cout << life;
 	// Main game loop
 	while (!WindowShouldClose())    // Detect window close button or ESC key
 	{
@@ -40,19 +65,19 @@ int main()
 		//----------------------------------------------------------------------------------
 		// TODO: Update your variables here
 		if (player.getHealth() >= 80) {
-			player.setPlayerText(temp[0]);
+			player.setPlayerText(faces[0]);
 		}
 		else if (player.getHealth() >= 60) {
-			player.setPlayerText(temp[1]);
+			player.setPlayerText(faces[1]);
 		}
 		else if (player.getHealth() >= 40) {
-			player.setPlayerText(temp[2]);
+			player.setPlayerText(faces[2]);
 		}
 		else if (player.getHealth() >= 20) {
-			player.setPlayerText(temp[3]);
+			player.setPlayerText(faces[3]);
 		}
 		else {
-			player.setPlayerText(temp[4]);
+			player.setPlayerText(faces[4]);
 		}
 		//----------------------------------------------------------------------------------
 		if (IsKeyPressed(KEY_F)){
@@ -71,6 +96,9 @@ int main()
 		//----------------------------------------------------------------------------------
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
+		for (int i = 0; i < waterTiles; i++) {
+			water[i].draw();
+		}
 		player.draw();
 		EndDrawing();
 		//----------------------------------------------------------------------------------
