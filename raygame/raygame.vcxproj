@@ -145,9 +145,25 @@
     <ClInclude Include="myHero.h" />
     <ClInclude Include="items.h" />
     <ClInclude Include="color.h" />
+    <ClInclude Include="sprite.h" />
     <ClInclude Include="tile.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="resources\adventurer_idle.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="resources\adventurer_jump.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="resources\adventurer_stand.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="resources\adventurer_walk1.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="resources\adventurer_walk2.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="resources\barricadeMetal.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>

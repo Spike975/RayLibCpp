@@ -1,4 +1,5 @@
 #include "myHero.h"
+#include "sprite.h"
 #include <iostream>
 
 void MyHero::operator +(Potion & p) {
@@ -178,3 +179,18 @@ void Inventory::subPotion() {
 	currPotion--;
 }
 
+void Sprite::Draw() {
+	DrawTexture(spriteCells, (int)x, (int)y, WHITE);
+}
+Sprite::Sprite() {
+	x = (float)GetScreenWidth();
+	y = (float)GetScreenHeight();
+}
+Sprite::Sprite(Texture2D texture, const int cellCount, const float _frameRate) {
+	spriteCells = texture;
+	x = (float)(GetScreenWidth()/2.f)-(spriteCells.width/2.f);
+	y = (float)(GetScreenHeight()/2.f)-(spriteCells.height/2.f);
+}
+Sprite::~Sprite() {
+
+}

@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include "raylib.h"
 #include "myHero.h"
+#include "sprite.h"
 #include "tile.h"
 
 int main()
@@ -20,22 +21,21 @@ int main()
 	//--------------------------------------------------------------------------------------
 	int screenWidth = 800;
 	int screenHeight = 450;
+	int lands = 0;
 
 	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 	Texture2D blocks[] = { LoadTexture("resources/water.png"),LoadTexture("resources/dirt.png"),LoadTexture("resources/grass.png") };
 	Texture2D faces[] = { LoadTexture("resources/ouch1.png"), LoadTexture("resources/ouch2.png"),LoadTexture("resources/ouch3.png"),LoadTexture("resources/ouch4.png"),LoadTexture("resources/ouch5.png") };
-	
-
-	const int something = (int)ceil((floor(GetScreenWidth() / blocks[0].width) + 1)*(floor(GetScreenHeight() / blocks[0].height) + 1));
-
-	Tile water[something];
+	Texture2D playerText[5] = {LoadTexture("resources/adventurer_idle.png"), LoadTexture("resources/adventurer_stand.png"),LoadTexture("resources/adventurer_jump.png"),LoadTexture("resources/adventurer_walk1.png"),LoadTexture("resources/adventurer_walk2.png")};
+	int currentPlayer = 0;
+	Tile water[13*8];
 	int temp1 = 0;
 	int temp2 = 0;
 	int waterTiles = 0;
 	do{
 		water[waterTiles].Background = blocks[0];
-		water[waterTiles].position.x = temp1;
-		water[waterTiles].position.y = temp2;
+		water[waterTiles].position.x = (float)temp1;
+		water[waterTiles].position.y = (float)temp2;
 
 		temp1 += water[waterTiles].Background.width;
 		if (temp1 > GetScreenWidth()) {
@@ -44,12 +44,8 @@ int main()
 		}
 		waterTiles++;
 	} while(temp2 < GetScreenHeight());
-
-	std::cout << GetScreenWidth() / blocks[0].width <<std::endl;
-	std::cout << GetScreenHeight() / blocks[0].height <<std::endl;
-
-	std::cout << something <<std::endl;
-	std::cout << waterTiles <<std::endl;
+	
+	Sprite charecter(playerText[0], 2,1);
 
 	MyHero player;
 	Potion p1(10, 1);
@@ -63,7 +59,6 @@ int main()
 	{
 		// Update
 		//----------------------------------------------------------------------------------
-		// TODO: Update your variables here
 		if (player.getHealth() >= 80) {
 			player.setPlayerText(faces[0]);
 		}
@@ -79,12 +74,36 @@ int main()
 		else {
 			player.setPlayerText(faces[4]);
 		}
-		//----------------------------------------------------------------------------------
 		if (IsKeyPressed(KEY_F)){
 			player + p1;
 		}
 		if (IsKeyPressed(KEY_T)) {
 			player + p2;
+		}
+		if (IsKeyPressed(KEY_Q)) {
+			SetTextureFilter(playerText[0], -1);
+			charecter.spriteCells = playerText[0];
+		}
+		if (IsKeyPressed(KEY_R)) {
+			lands++;
+			if (lands > 2){
+				lands = 0;
+			}
+			for (int i = 0; i < waterTiles; i++) {
+				water[i].Background = blocks[lands];
+			}
+		}
+		if (IsKeyDown(KEY_W)) {
+			charecter.y--;
+		}
+		if (IsKeyDown(KEY_S)) {
+			charecter.y++;
+		}
+		if (IsKeyDown(KEY_A)) {
+			charecter.x--;
+		}
+		if (IsKeyDown(KEY_D)) {
+			charecter.x++;
 		}
 		if (player.getHealth() > 100) {
 			player.setHealth(100);
@@ -92,6 +111,7 @@ int main()
 		if (player.getHealth() < 0) {
 			player.setHealth(0);
 		}
+		//----------------------------------------------------------------------------------
 		// Draw
 		//----------------------------------------------------------------------------------
 		BeginDrawing();
@@ -99,6 +119,7 @@ int main()
 		for (int i = 0; i < waterTiles; i++) {
 			water[i].draw();
 		}
+		charecter.Draw();
 		player.draw();
 		EndDrawing();
 		//----------------------------------------------------------------------------------
@@ -106,7 +127,7 @@ int main()
 
 	// De-Initialization
 	//--------------------------------------------------------------------------------------   
-	CloseWindow();        // Close window and OpenGL context
+	CloseWindow();
 	//--------------------------------------------------------------------------------------
 
 	return 0;
